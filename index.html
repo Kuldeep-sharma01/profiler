@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+  </head>
+
+  <body>
+    <nav>
+      <div id="search-wrapper">
+        <input type="search" name="search" id="search" placeholder="search ...">
+        <span id="search-suggestion"></span>
+        <button id="search-icon"><i class="ri-search-line"></i></button>
+      </div>
+      <select name="sort" id="sort">
+        <option disabled selected>sort by</option>
+      </select>
+      <button id="clear-all">Clear All Cards</button>
+      <button id="bulk-upload">Bulk Upload</button>
+    </nav>
+
+    <form class="form-container" id="formModal" autocomplete="off" popover>
+      <h3>New Call</h3>
+
+      <p id="warning-text">Please fill all the fields</p>
+      <p>Image URL</p>
+      <input type="text" required placeholder="https://example.com/photo.png" name="image" id="image">
+      <p>Full Name</p>
+      <input type="text" required name="fullname" id="fullname" placeholder="Enter full name">
+      <p>Home Town</p>
+      <input type="text" required name="hometown" id="hometown" placeholder="Enter home town">
+      <p>Purpose</p>
+      <input type="text" required name="purpose" id="purpose" placeholder="eg. Quick appointment note">
+      <p>Category</p>
+      <div class="category">
+        <div class="category" id="emergency">
+          <input type="radio" required value="emergency" name="category">
+          Emergency
+        </div>
+        <div class="category" id="noRush">
+          <input type="radio" required value="noRush" name="category">
+          No Rush
+        </div>
+        <div class="category" id="important">
+          <input type="radio" required value="important" name="category">
+          Important
+        </div>
+        <div class="category" id="urgent">
+          <input type="radio" required value="urgent" name="category">
+          Urgent
+        </div>
+      </div>
+
+      <button id="createNote">Create Note</button>
+      <button type='button' id="form-close" popovertarget="formModal" popovertargetaction="hide">Close</button>
+    </form>
+
+    <div id="uploadPanel" popover>
+      <div id="upload-header">
+
+        <select name="uploadType" id="uploadType">
+          <option value="json" selected>JSON</option>
+          <option value="newline">Newline</option>
+          <option value="url">URL</option>
+          <option value="text">Text</option>
+          <option value="list">List</option>
+          <option value="csv">CSV</option>
+        </select>
+        <button id="reset">Reset</button>
+        <label class="category">
+          <input type="checkbox" name="replace" id="replace">Replace Existing Data
+        </label>
+      </div>
+      <textarea name="bulk-data" id="bulk-data" cols="30" rows="10"></textarea>
+      <div id="upload-footer">
+        <button id="upload-close" popovertarget="uploadPanel" popovertargetaction="hide">Close</button>
+        <button id="upload">Upload</button>
+      </div>
+    </div>
+
+    <div id="decisionModal" popover>
+      <p>Do You Really want to <span id="actionType">Delete</span> it?</p>
+      <button id="accept">Delete</button>
+      <button id="cancel" popovertarget="decisionModal" popovertargetaction="hide">Cancel</button>
+    </div>
+
+    <div id="note-container">
+      <div id="left-icons">
+        <button id="add-note" popovertarget="formModal" popovertargetaction="show"><i class="ri-add-line"></i></button>
+        <button id="up-note"><i class="ri-arrow-up-line"></i></button>
+        <button id="down-note"><i class="ri-arrow-down-line"></i></button>
+        <button id="edit-note"><i class="ri-pencil-line"></i></button>
+      </div>
+
+      <div class="stack">
+
+      </div>
+      <div id="right-colors">
+        <span class='dot' id="important"></span>
+        <span class='dot' id="emergency"></span>
+        <span class='dot' id="urgent"></span>
+        <span class='dot' id="noRush"></span>
+      </div>
+
+    </div>
+    <div id="toaster-container" popover>
+    </div>
+    <script src="script.js"></script>
+  </body>
+
+</html>
