@@ -16,6 +16,9 @@ const local = (key = 'tasks', onUpdate = () => { }) => ({
       return [];
     }
   },
+  set(val) {
+    localStorage.setItem(key, val);
+  },
   save(data) {
     localStorage.setItem(key, JSON.stringify(data));
     onUpdate(data);
@@ -61,9 +64,15 @@ const local = (key = 'tasks', onUpdate = () => { }) => ({
 
 const DOM = () => {
   let self = {
+    theme : local('theme'),
     tasks: local('tasks', (data) => {
       self.showcards(data);
     }),
+    applyTheme(theme) {
+      console.log('theme change')
+      document.body.className = theme;
+      self.theme.save(theme);
+    },
     get(el, handler = null, eventType = 'click', attrs = {}, style = {}) {
       let element = document.querySelectorAll(el);
       element.forEach(el => {
@@ -486,6 +495,9 @@ const DOM = () => {
     }],
     suggestSpan: '#search-suggestion',
     searchBtn: '#search-icon',
+    themeToggle: ['#themeToggle', (e) => {
+    self.applyTheme(document.body.className === 'light' ? 'dark' : 'light')
+    }],
   };
 
   for (let key in getEl) {
@@ -497,6 +509,8 @@ const DOM = () => {
   for (let key in makeEl) {
     self[key] = self.make(...[].concat(makeEl[key]));
   }
+
+
 
   self.activeSuggestion = '';
 
@@ -527,3 +541,4 @@ const DOM = () => {
 let el = DOM();
 el.dataInp.placeholder = `${JSON.stringify(demo)}`;
 el.showcards();
+el.applyTheme(el.theme.get() || window.watchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light')
